@@ -185,7 +185,7 @@ const STORE_TEMPLATE = [
   { name: "Croma", abbr: "CR", color: "#9E1C30", offsetPct: 0.071, deliveryLabel: "₹99 Delivery", deliveryTime: "4 days", offer: "Exchange Bonus", cashback: false, coupon: "", best: false, lowestEver: false, inStock: true, verified: false },
 ];
 
-function buildStores(lowestPrice: number, originalPrice: number, reviews: number, rating: number) {
+export function buildStores(lowestPrice: number, originalPrice: number, reviews: number, rating: number) {
   return STORE_TEMPLATE.map((t, i) => {
     const price = Math.round((lowestPrice * (1 + t.offsetPct)) / 10) * 10;
     return {
@@ -200,11 +200,12 @@ function buildStores(lowestPrice: number, originalPrice: number, reviews: number
       reviews: Math.max(200, Math.round(reviews / (i + 1))),
       badge: t.badge,
       lowestEver: t.lowestEver,
+      url: undefined as string | undefined,
     };
   });
 }
 
-function buildPriceHistory(lowestPrice: number) {
+export function buildPriceHistory(lowestPrice: number) {
   // Same relative shape as the original mock's PH_30D/90D/1Y, scaled to this
   // product's actual current price instead of one hardcoded absolute figure.
   const scale = lowestPrice / 111900;

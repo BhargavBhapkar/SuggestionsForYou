@@ -18,6 +18,7 @@ const storeOfferSchema = new Schema(
     reviews: { type: Number, default: 0 },
     badge: { type: String },
     lowestEver: { type: Boolean, default: false },
+    url: { type: String },
   },
   { _id: false },
 );
@@ -58,6 +59,8 @@ const productSchema = new Schema(
     dealStoreColor: { type: String },
     dealStock: { type: Number },
     dealLimited: { type: Boolean },
+    source: { type: String, default: "mock" },
+    asin: { type: String },
     specs: { type: [specSchema], default: [] },
     priceHistory: {
       "30d": { type: [pricePointSchema], default: [] },

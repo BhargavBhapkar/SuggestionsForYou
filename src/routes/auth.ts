@@ -4,6 +4,7 @@ import User, { hashPassword } from "../models/User.js";
 import { signToken } from "../utils/jwt.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
 import { requireAuth, type AuthedRequest } from "../middleware/auth.js";
+import { authLimiter } from "../middleware/rateLimit.js";
 
 const router = Router();
 
@@ -24,6 +25,7 @@ function toPublicUser(user: { _id: unknown; name: string; email: string; role: s
 
 router.post(
   "/signup",
+  authLimiter,
   asyncHandler(async (req, res) => {
     const parsed = signupSchema.safeParse(req.body);
     if (!parsed.success) {
@@ -44,6 +46,7 @@ router.post(
 
 router.post(
   "/login",
+  authLimiter,
   asyncHandler(async (req, res) => {
     const parsed = loginSchema.safeParse(req.body);
     if (!parsed.success) {

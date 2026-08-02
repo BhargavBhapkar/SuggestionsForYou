@@ -1,8 +1,10 @@
 import "dotenv/config";
 import express from "express";
 import cors from "cors";
+import helmet from "helmet";
 import { connectDB } from "./config/db.js";
 import { notFoundHandler, errorHandler } from "./middleware/errorHandler.js";
+import { apiLimiter } from "./middleware/rateLimit.js";
 import Product from "./models/Product.js";
 import { runSeed } from "./seed/runSeed.js";
 
@@ -15,6 +17,7 @@ import authRouter from "./routes/auth.js";
 import cartRouter from "./routes/cart.js";
 import addressesRouter from "./routes/addresses.js";
 import usersRouter from "./routes/users.js";
+import ordersRouter from "./routes/orders.js";
 
 async function main() {
   await connectDB();
@@ -28,8 +31,11 @@ async function main() {
   }
 
   const app = express();
+  app.set("trust proxy", 1);
+  app.use(helmet());
   app.use(cors({ origin: process.env.CORS_ORIGIN?.split(",") ?? "*" }));
-  app.use(express.json());
+  app.use(express.json({ limit: "100kb" }));
+  app.use("/api", apiLimiter);
 
   app.get("/api/health", (_req, res) => res.json({ ok: true }));
   app.use("/api/products", productsRouter);
@@ -41,6 +47,7 @@ async function main() {
   app.use("/api/cart", cartRouter);
   app.use("/api/addresses", addressesRouter);
   app.use("/api/users", usersRouter);
+  app.use("/api/orders", ordersRouter);
 
   app.use(notFoundHandler);
   app.use(errorHandler);

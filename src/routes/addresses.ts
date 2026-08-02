@@ -70,7 +70,9 @@ router.delete(
     if (!user) return res.status(404).json({ error: "User not found" });
     const index = user.addresses.findIndex((a) => String(a._id) === req.params.addressId);
     if (index === -1) return res.status(404).json({ error: "Address not found" });
+    const wasDefault = user.addresses[index].isDefault;
     user.addresses.splice(index, 1);
+    if (wasDefault && user.addresses.length > 0) user.addresses[0].isDefault = true;
     await user.save();
     res.json(user.addresses);
   }),

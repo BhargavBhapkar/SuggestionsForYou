@@ -10,6 +10,7 @@ export function errorHandler(err: any, req: Request, res: Response, next: NextFu
   if (err?.code === 11000) {
     return res.status(409).json({ error: "That value is already in use." });
   }
-  const status = err?.status ?? 500;
-  res.status(status).json({ error: err?.message ?? "Internal server error" });
+  const status = typeof err?.status === "number" ? err.status : 500;
+  const message = status < 500 ? (err?.message ?? "Invalid request") : "Internal server error";
+  res.status(status).json({ error: message });
 }
