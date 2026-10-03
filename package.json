@@ -9,9 +9,12 @@
     "start": "node dist/server.js",
     "seed": "tsx src/seed/seed.ts",
     "ingest:amazon": "tsx src/seed/ingestAmazon.ts",
+    "sync:kaggle": "tsx src/seed/ingestKaggle.ts",
+    "update:copy": "tsx src/seed/updateCopy.ts",
     "dev:memdb": "cross-env USE_MEMORY_DB=true tsx watch src/server.ts"
   },
   "dependencies": {
+    "@anthropic-ai/sdk": "^0.116.0",
     "bcryptjs": "2.4.3",
     "cors": "2.8.5",
     "dotenv": "16.4.5",
@@ -20,7 +23,7 @@
     "helmet": "8.3.0",
     "jsonwebtoken": "9.0.2",
     "mongoose": "8.24.1",
-    "zod": "3.23.8"
+    "zod": "^3.25.76"
   },
   "devDependencies": {
     "@types/bcryptjs": "2.4.6",

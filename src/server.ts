@@ -18,6 +18,7 @@ import cartRouter from "./routes/cart.js";
 import addressesRouter from "./routes/addresses.js";
 import usersRouter from "./routes/users.js";
 import ordersRouter from "./routes/orders.js";
+import chatRouter from "./routes/chat.js";
 
 async function main() {
   await connectDB();
@@ -48,6 +49,7 @@ async function main() {
   app.use("/api/addresses", addressesRouter);
   app.use("/api/users", usersRouter);
   app.use("/api/orders", ordersRouter);
+  app.use("/api/chat", chatRouter);
 
   app.use(notFoundHandler);
   app.use(errorHandler);
