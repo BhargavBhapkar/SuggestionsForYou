@@ -1,5 +1,6 @@
 import "dotenv/config";
 import express from "express";
+import compression from "compression";
 import cors from "cors";
 import helmet from "helmet";
 import { connectDB } from "./config/db.js";
@@ -19,6 +20,7 @@ import addressesRouter from "./routes/addresses.js";
 import usersRouter from "./routes/users.js";
 import ordersRouter from "./routes/orders.js";
 import chatRouter from "./routes/chat.js";
+import newsletterRouter from "./routes/newsletter.js";
 
 async function main() {
   await connectDB();
@@ -34,6 +36,7 @@ async function main() {
   const app = express();
   app.set("trust proxy", 1);
   app.use(helmet());
+  app.use(compression());
   app.use(cors({ origin: process.env.CORS_ORIGIN?.split(",") ?? "*" }));
   app.use(express.json({ limit: "100kb" }));
   app.use("/api", apiLimiter);
@@ -50,6 +53,7 @@ async function main() {
   app.use("/api/users", usersRouter);
   app.use("/api/orders", ordersRouter);
   app.use("/api/chat", chatRouter);
+  app.use("/api/newsletter", newsletterRouter);
 
   app.use(notFoundHandler);
   app.use(errorHandler);

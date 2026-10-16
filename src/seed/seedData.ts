@@ -2,15 +2,16 @@
 // SearchResultsPage.tsx, and PriceComparisonPage.tsx mock arrays.
 
 export const CATEGORIES = [
-  { name: "Mobiles", iconName: "Smartphone", count: "700+", color: "#3B82F6", bg: "#EFF6FF", darkBg: "#1e3a5f" },
-  { name: "Laptops", iconName: "Laptop", count: "10+", color: "#8B5CF6", bg: "#F5F3FF", darkBg: "#2d1f5e" },
-  { name: "Headphones", iconName: "Headphones", count: "500+", color: "#EC4899", bg: "#FDF2F8", darkBg: "#4a1942" },
-  { name: "Smart Watches", iconName: "Watch", count: "800+", color: "#F97316", bg: "#FFF7ED", darkBg: "#431407" },
-  { name: "Tablets", iconName: "Monitor", count: "30+", color: "#06B6D4", bg: "#ECFEFF", darkBg: "#0c3d47" },
-  { name: "Gaming", iconName: "Gamepad2", count: "10+", color: "#10B981", bg: "#ECFDF5", darkBg: "#064e3b" },
-  { name: "Televisions", iconName: "Tv", count: "90+", color: "#EF4444", bg: "#FEF2F2", darkBg: "#450a0a" },
-  { name: "Cameras", iconName: "Camera", count: "25+", color: "#F59E0B", bg: "#FFFBEB", darkBg: "#451a03" },
-  { name: "Home Appliances", iconName: "Home", count: "25+", color: "#14B8A6", bg: "#F0FDFA", darkBg: "#042f2e" },
+  { name: "Mobiles", iconName: "Smartphone", count: "467", color: "#3B82F6", bg: "#EFF6FF", darkBg: "#1e3a5f" },
+  { name: "Laptops", iconName: "Laptop", count: "44", color: "#8B5CF6", bg: "#F5F3FF", darkBg: "#2d1f5e" },
+  { name: "Headphones", iconName: "Headphones", count: "483", color: "#EC4899", bg: "#FDF2F8", darkBg: "#4a1942" },
+  { name: "Smart Watches", iconName: "Watch", count: "343", color: "#F97316", bg: "#FFF7ED", darkBg: "#431407" },
+  { name: "Tablets", iconName: "Tablet", count: "36", color: "#06B6D4", bg: "#ECFEFF", darkBg: "#0c3d47" },
+  { name: "Monitors", iconName: "Monitor", count: "19", color: "#6366F1", bg: "#EEF2FF", darkBg: "#1e1b4b" },
+  { name: "Gaming", iconName: "Gamepad2", count: "37", color: "#10B981", bg: "#ECFDF5", darkBg: "#064e3b" },
+  { name: "Televisions", iconName: "Tv", count: "51", color: "#EF4444", bg: "#FEF2F2", darkBg: "#450a0a" },
+  { name: "Cameras", iconName: "Camera", count: "26", color: "#F59E0B", bg: "#FFFBEB", darkBg: "#451a03" },
+  { name: "Home Appliances", iconName: "Home", count: "33", color: "#14B8A6", bg: "#F0FDFA", darkBg: "#042f2e" },
 ].map((c, i) => ({ ...c, order: i }));
 
 export const RETAILERS = [
@@ -135,10 +136,10 @@ export const FAQS = [
   },
   {
     q: "Can I compare prices for any product?",
-    a: "You can search across mobiles, laptops, headphones, smart watches, tablets, gaming gear, TVs, cameras, and home appliances sold by major Indian retailers. We currently list 2,300+ products and add more as we expand our catalog.",
+    a: "You can search across mobiles, laptops, headphones, smart watches, tablets, gaming gear, TVs, cameras, and home appliances sold by major Indian retailers. We're actively growing our catalog, with more products added regularly.",
     translations: {
-      hi: { q: "क्या मैं किसी भी उत्पाद की कीमतों की तुलना कर सकता हूँ?", a: "आप प्रमुख भारतीय रिटेलर्स द्वारा बेचे जाने वाले मोबाइल, लैपटॉप, हेडफ़ोन, स्मार्टवॉच, टैबलेट, गेमिंग गियर, टीवी, कैमरा और होम एप्लायंस में खोज सकते हैं। हम फ़िलहाल 2,300+ उत्पाद सूचीबद्ध करते हैं और कैटलॉग बढ़ाने के साथ और जोड़ते रहते हैं।" },
-      gu: { q: "શું હું કોઈપણ ઉત્પાદનની કિંમતોની સરખામણી કરી શકું?", a: "તમે મુખ્ય ભારતીય રિટેલર્સ દ્વારા વેચાતા મોબાઇલ, લેપટોપ, હેડફોન, સ્માર્ટવોચ, ટેબ્લેટ, ગેમિંગ ગિયર, ટીવી, કેમેરા અને હોમ એપ્લાયન્સમાં શોધી શકો છો. અમે હાલમાં 2,300+ ઉત્પાદનો સૂચિબદ્ધ કરીએ છીએ અને કેટલોગ વધારવા સાથે વધુ ઉમેરીએ છીએ." },
+      hi: { q: "क्या मैं किसी भी उत्पाद की कीमतों की तुलना कर सकता हूँ?", a: "आप प्रमुख भारतीय रिटेलर्स द्वारा बेचे जाने वाले मोबाइल, लैपटॉप, हेडफ़ोन, स्मार्टवॉच, टैबलेट, गेमिंग गियर, टीवी, कैमरा और होम एप्लायंस में खोज सकते हैं। हम अपने कैटलॉग को लगातार बढ़ा रहे हैं, और नियमित रूप से नए उत्पाद जोड़ रहे हैं।" },
+      gu: { q: "શું હું કોઈપણ ઉત્પાદનની કિંમતોની સરખામણી કરી શકું?", a: "તમે મુખ્ય ભારતીય રિટેલર્સ દ્વારા વેચાતા મોબાઇલ, લેપટોપ, હેડફોન, સ્માર્ટવોચ, ટેબ્લેટ, ગેમિંગ ગિયર, ટીવી, કેમેરા અને હોમ એપ્લાયન્સમાં શોધી શકો છો. અમે અમારા કેટલોગને સતત વિસ્તારી રહ્યા છીએ, અને નિયમિતપણે નવા ઉત્પાદનો ઉમેરી રહ્યા છીએ." },
     },
   },
   {

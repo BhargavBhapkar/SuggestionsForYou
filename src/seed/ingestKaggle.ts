@@ -1,10 +1,10 @@
 import "dotenv/config";
-import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { connectDB, disconnectDB } from "../config/db.js";
 import Product from "../models/Product.js";
 import { buildStores, buildPriceHistory } from "./seedData.js";
+import { readRows } from "./csv.js";
 
 // Usage:
 //   npm run sync:kaggle                 (reads from ../Datasets relative to this package)
@@ -28,47 +28,6 @@ const FALLBACK_IMAGES: Record<string, string> = {
   Mobiles: "https://images.unsplash.com/photo-1610945264803-c22b62d2a7b3?w=500&h=500&fit=crop&auto=format",
   "Smart Watches": "https://images.unsplash.com/photo-1546868871-7041f2a55e12?w=500&h=500&fit=crop&auto=format",
 };
-
-// ─── CSV parsing (quoted-field aware) ──────────────────────────────────────
-
-function parseCsv(text: string): string[][] {
-  const rows: string[][] = [];
-  let row: string[] = [];
-  let field = "";
-  let inQuotes = false;
-  for (let i = 0; i < text.length; i++) {
-    const c = text[i];
-    if (inQuotes) {
-      if (c === '"') {
-        if (text[i + 1] === '"') { field += '"'; i++; }
-        else inQuotes = false;
-      } else field += c;
-    } else {
-      if (c === '"') inQuotes = true;
-      else if (c === ",") { row.push(field); field = ""; }
-      else if (c === "\n") { row.push(field); rows.push(row); row = []; field = ""; }
-      else if (c === "\r") { /* skip */ }
-      else field += c;
-    }
-  }
-  if (field.length || row.length) { row.push(field); rows.push(row); }
-  return rows;
-}
-
-function readRows(filePath: string): Record<string, string>[] {
-  const text = fs.readFileSync(filePath, "utf-8");
-  const rows = parseCsv(text);
-  const header = rows[0];
-  const out: Record<string, string>[] = [];
-  for (let i = 1; i < rows.length; i++) {
-    const r = rows[i];
-    if (!r || r.length < header.length) continue;
-    const obj: Record<string, string> = {};
-    header.forEach((h, idx) => { obj[h] = (r[idx] ?? "").trim(); });
-    out.push(obj);
-  }
-  return out;
-}
 
 // ─── Shared helpers ─────────────────────────────────────────────────────────
 

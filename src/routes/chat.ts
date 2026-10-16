@@ -37,7 +37,7 @@ const SEARCH_PRODUCTS_TOOL: Anthropic.Tool = {
       category: {
         type: "string",
         description: "Exact category to filter by, if known.",
-        enum: ["Mobiles", "Laptops", "Headphones", "Smart Watches", "Tablets", "Gaming", "Televisions", "Cameras", "Home Appliances"],
+        enum: ["Mobiles", "Laptops", "Headphones", "Smart Watches", "Tablets", "Gaming", "Televisions", "Cameras", "Home Appliances", "Monitors"],
       },
       maxPrice: { type: "number", description: "Maximum budget in INR, if the user gave one." },
       minPrice: { type: "number", description: "Minimum price in INR, if relevant." },

@@ -10,12 +10,17 @@
     "seed": "tsx src/seed/seed.ts",
     "ingest:amazon": "tsx src/seed/ingestAmazon.ts",
     "sync:kaggle": "tsx src/seed/ingestKaggle.ts",
+    "sync:catalog": "tsx src/seed/ingestCatalog.ts",
+    "export:image-list": "tsx src/seed/exportImageList.ts",
+    "fetch:images": "tsx src/seed/fetchImages.ts",
+    "sync:photos": "tsx src/seed/syncPhotos.ts",
     "update:copy": "tsx src/seed/updateCopy.ts",
     "dev:memdb": "cross-env USE_MEMORY_DB=true tsx watch src/server.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.116.0",
     "bcryptjs": "2.4.3",
+    "compression": "1.7.5",
     "cors": "2.8.5",
     "dotenv": "16.4.5",
     "express": "4.22.2",
@@ -27,6 +32,7 @@
   },
   "devDependencies": {
     "@types/bcryptjs": "2.4.6",
+    "@types/compression": "1.7.5",
     "@types/cors": "2.8.17",
     "@types/express": "4.17.21",
     "@types/jsonwebtoken": "9.0.7",

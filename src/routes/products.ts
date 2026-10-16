@@ -16,7 +16,7 @@ router.get(
     if (brand) filter.brand = brand;
     if (q) filter.$text = { $search: String(q) };
 
-    let query = Product.find(filter).sort({ createdAt: -1 });
+    let query = Product.find(filter).sort({ createdAt: -1 }).lean();
     if (limit) query = query.limit(Number(limit));
 
     const products = await query.exec();
