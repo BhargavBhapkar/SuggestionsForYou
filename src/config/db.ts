@@ -1,4 +1,10 @@
+import dns from "node:dns";
 import mongoose from "mongoose";
+
+// Some machines point Node at a local DNS stub (127.0.0.1) that refuses the SRV lookup
+// a mongodb+srv:// URI needs. DNS_SERVERS (comma-separated) overrides it, e.g. 8.8.8.8,1.1.1.1.
+const dnsServers = (process.env.DNS_SERVERS ?? "").split(",").map((s) => s.trim()).filter(Boolean);
+if (dnsServers.length) dns.setServers(dnsServers);
 
 let memoryServer: import("mongodb-memory-server").MongoMemoryServer | undefined;
 

@@ -21,6 +21,8 @@ import usersRouter from "./routes/users.js";
 import ordersRouter from "./routes/orders.js";
 import chatRouter from "./routes/chat.js";
 import newsletterRouter from "./routes/newsletter.js";
+import paymentsRouter, { razorpayWebhook } from "./routes/payments.js";
+import { asyncHandler } from "./utils/asyncHandler.js";
 
 async function main() {
   await connectDB();
@@ -38,6 +40,8 @@ async function main() {
   app.use(helmet());
   app.use(compression());
   app.use(cors({ origin: process.env.CORS_ORIGIN?.split(",") ?? "*" }));
+  // Razorpay signs the raw body, so this route must be registered before the JSON parser.
+  app.post("/api/payments/webhook", express.raw({ type: "application/json", limit: "100kb" }), asyncHandler(razorpayWebhook));
   app.use(express.json({ limit: "100kb" }));
   app.use("/api", apiLimiter);
 
@@ -54,6 +58,7 @@ async function main() {
   app.use("/api/orders", ordersRouter);
   app.use("/api/chat", chatRouter);
   app.use("/api/newsletter", newsletterRouter);
+  app.use("/api/payments", paymentsRouter);
 
   app.use(notFoundHandler);
   app.use(errorHandler);

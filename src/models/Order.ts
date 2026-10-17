@@ -37,6 +37,9 @@ const orderSchema = new Schema(
     couponCode: { type: String },
     paymentMethod: { type: String, enum: ["cod", "razorpay"], default: "cod" },
     paymentStatus: { type: String, enum: ["pending", "paid", "failed"], default: "pending" },
+    razorpayOrderId: { type: String, index: true, sparse: true },
+    razorpayPaymentId: { type: String },
+    paidAt: { type: Date },
     orderStatus: {
       type: String,
       enum: ["placed", "confirmed", "shipped", "delivered", "cancelled"],

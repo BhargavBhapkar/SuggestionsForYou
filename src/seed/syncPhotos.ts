@@ -7,6 +7,8 @@ import { readRows } from "./csv.js";
 //   npm run sync:photos -- --dry-run     report only, copy nothing
 //   npm run sync:photos                  copy + record + write the remaining list
 //   npm run sync:photos -- --from "<folder>"   use another source folder
+// Default source: "Product Images/product_image_downloader_v2/Datasets/product-images",
+// or plain "Product Images" if that folder is missing.
 //
 // Takes photos you saved as "<image_name>.<jpg|png|webp>" (names from
 // Datasets/product_images_needed.csv), copies them into
@@ -28,7 +30,8 @@ const PUBLIC_PREFIX = "/product-images/";
 const argv = process.argv.slice(2);
 const dryRun = argv.includes("--dry-run");
 const fromIdx = argv.indexOf("--from");
-const SRC = fromIdx >= 0 ? path.resolve(argv[fromIdx + 1]) : path.join(ROOT, "Product Images");
+const DOWNLOADER_DIR = path.join(ROOT, "Product Images", "product_image_downloader_v2", "Datasets", "product-images");
+const SRC = fromIdx >= 0 ? path.resolve(argv[fromIdx + 1]) : fs.existsSync(DOWNLOADER_DIR) ? DOWNLOADER_DIR : path.join(ROOT, "Product Images");
 
 type Kind = "jpg" | "png" | "webp";
 
