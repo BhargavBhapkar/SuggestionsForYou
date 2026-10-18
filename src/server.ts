@@ -24,7 +24,20 @@ import newsletterRouter from "./routes/newsletter.js";
 import paymentsRouter, { razorpayWebhook } from "./routes/payments.js";
 import { asyncHandler } from "./utils/asyncHandler.js";
 
+// On a real host (production or Railway) these must be set; failing here gives a clear
+// message instead of a confusing crash later (a missing MONGODB_URI would otherwise fall
+// back to a throwaway in-memory database).
+function requireHostedEnv() {
+  const hosted = process.env.NODE_ENV === "production" || Object.keys(process.env).some((k) => k.startsWith("RAILWAY_"));
+  if (!hosted || process.env.USE_MEMORY_DB === "true") return;
+  const missing = ["MONGODB_URI", "JWT_SECRET"].filter((k) => !process.env[k]);
+  if (missing.length) {
+    throw new Error(`Missing required environment variable(s): ${missing.join(", ")}. Add them in your host's Variables settings and redeploy.`);
+  }
+}
+
 async function main() {
+  requireHostedEnv();
   await connectDB();
 
   if (process.env.USE_MEMORY_DB === "true") {
