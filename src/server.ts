@@ -21,7 +21,9 @@ import usersRouter from "./routes/users.js";
 import ordersRouter from "./routes/orders.js";
 import chatRouter from "./routes/chat.js";
 import newsletterRouter from "./routes/newsletter.js";
+import contactRouter from "./routes/contact.js";
 import paymentsRouter, { razorpayWebhook } from "./routes/payments.js";
+import { logPaymentMode } from "./services/razorpay.js";
 import { asyncHandler } from "./utils/asyncHandler.js";
 
 // On a real host (production or Railway) these must be set; failing here gives a clear
@@ -38,6 +40,7 @@ function requireHostedEnv() {
 
 async function main() {
   requireHostedEnv();
+  logPaymentMode();
   await connectDB();
 
   if (process.env.USE_MEMORY_DB === "true") {
@@ -71,6 +74,7 @@ async function main() {
   app.use("/api/orders", ordersRouter);
   app.use("/api/chat", chatRouter);
   app.use("/api/newsletter", newsletterRouter);
+  app.use("/api/contact", contactRouter);
   app.use("/api/payments", paymentsRouter);
 
   app.use(notFoundHandler);

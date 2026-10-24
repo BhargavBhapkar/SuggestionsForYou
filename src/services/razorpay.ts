@@ -7,6 +7,18 @@ export class PaymentError extends Error {}
 
 export const isRazorpayConfigured = () => Boolean(process.env.RAZORPAY_KEY_ID && process.env.RAZORPAY_KEY_SECRET);
 
+/** "live" only for an rzp_live_ key; anything else (rzp_test_, or unset) is treated as test. */
+export const razorpayMode = (): "live" | "test" => (process.env.RAZORPAY_KEY_ID?.startsWith("rzp_live_") ? "live" : "test");
+
+/** One line at startup so the host's logs show which kind of payments this server takes. */
+export function logPaymentMode() {
+  if (!isRazorpayConfigured()) return console.log("[payments] Razorpay not configured: cash on delivery only.");
+  console.log(`[payments] Razorpay ${razorpayMode().toUpperCase()} mode.`);
+  if (razorpayMode() === "live" && !process.env.RAZORPAY_WEBHOOK_SECRET) {
+    console.warn("[payments] LIVE keys without RAZORPAY_WEBHOOK_SECRET: customers who pay and close the tab will not be marked paid. Create the webhook and set the secret.");
+  }
+}
+
 export type PaymentParams = { keyId: string; razorpayOrderId: string; amount: number; currency: string };
 
 export const toPaise = (rupees: number) => Math.round(rupees * 100);

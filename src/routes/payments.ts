@@ -1,13 +1,13 @@
 import { Router, type Request, type Response } from "express";
 import Order from "../models/Order.js";
-import { isRazorpayConfigured, toPaise, verifyWebhookSignature } from "../services/razorpay.js";
+import { isRazorpayConfigured, razorpayMode, toPaise, verifyWebhookSignature } from "../services/razorpay.js";
 import { markOrderPaid } from "../services/orderPayments.js";
 
 const router = Router();
 
-// Lets the checkout page know whether to offer online payment.
+// Lets the checkout page know whether to offer online payment, and whether it is real money.
 router.get("/config", (_req, res) => {
-  res.json({ online: isRazorpayConfigured() });
+  res.json({ online: isRazorpayConfigured(), mode: razorpayMode() });
 });
 
 export default router;

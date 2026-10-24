@@ -16,6 +16,14 @@ export const newsletterLimiter = rateLimit({
   message: { error: "Too many attempts. Please try again in a few minutes." },
 });
 
+export const contactLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  limit: 5,
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: { error: "You've sent a few messages already — please wait a few minutes and try again." },
+});
+
 export const apiLimiter = rateLimit({
   windowMs: 15 * 60 * 1000,
   limit: 300,

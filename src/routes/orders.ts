@@ -14,7 +14,7 @@ import { markOrderPaid } from "../services/orderPayments.js";
 const router = Router();
 router.use(requireAuth);
 
-const SUPPORT_EMAIL = "hello@suggestionsforyou.com";
+const SUPPORT_EMAIL = "support@suggestionsforyou.com";
 
 const createOrderSchema = z.object({
   addressId: z.string().min(1),
